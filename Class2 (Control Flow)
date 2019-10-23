@@ -26,3 +26,126 @@ if((flavor == "vanilla" || flavor == "chocolate") && (vessel == "cone" || vessel
     console.log("I'd like two scoops of "+ flavor +" ice cream in a "+ vessel +" with "+ toppings +".");
 }
 
+=======================================================================================================
+
+var shirtWidth = 19.99;
+var shirtLength = 28.99;
+var shirtSleeve = 8.379;
+
+// Write your if/else code here
+if((shirtWidth >= 18 && shirtWidth < 20) && (shirtLength >= 28 && shirtLength < 29) && shirtSleeve >= 8.13 && shirtSleeve < 8.38){
+    console.log("S");
+}else if((shirtWidth >= 20 && shirtWidth < 22) && (shirtLength >= 29 &&  shirtLength < 30) && (shirtSleeve >= 8.38 && shirtSleeve < 8.63)){
+    console.log("M");
+}else if((shirtWidth >= 22 && shirtWidth < 24) && (shirtLength >= 30 &&  shirtLength < 31)  && (shirtSleeve >= 8.63 && shirtSleeve < 8.88)){
+    console.log("L");
+}else if((shirtWidth >= 24 && shirtWidth < 26) && (shirtLength >= 31 &&  shirtLength < 33) && (shirtSleeve >= 8.88 && shirtSleeve < 9.63)){
+    console.log("XL");
+}else if((shirtWidth >= 26 && shirtWidth < 28) && (shirtLength >= 33 &&  shirtLength < 34) && (shirtSleeve >= 9.63 && shirtSleeve < 10.13)){
+    console.log("2XL");
+}else if((shirtWidth >= 28 && shirtWidth <= 28) && (shirtLength >= 34 && shirtLength <= 34) && (shirtSleeve >= 10.13 && shirtSleeve <= 10.13)){
+    console.log("3XL");
+}else{
+    console.
+}
+
+=======================================================================================================
+//Every Value is Javascript is truty or Falsy
+
+if ("") {
+    console.log("the value is truthy");
+} else {
+    console.log("the value is falsy");
+}
+//return false
+if (1) {
+    console.log("the value is truthy");
+} else {
+    console.log("the value is falsy");
+}//return true
+
+=======================================================================================================
+//Trenary Operator
+
+var isGoing = true;
+var color = isGoing ? "green" : "red";
+console.log(color);
+
+var adult = true;
+var preorder = true;
+
+console.log("It costs $" + (adult ? "40.00" : "20.00") + " to attend the concert. Pick up your tickets at the " + (preorder ? "will call" : "gate") + ".");
+
+var eatsPlants = false;
+var eatsAnimals = true;
+var category = eatsPlants ? ( eatsAnimals ? "omnivore" : "herbivore" ) : ( eatsAnimals ? "carnivore" : "undefined" );
+
+console.log(category);
+
+=======================================================================================================
+//Switch Statment
+
+var option = 3;
+switch (option) {
+  case 1:
+    console.log("You selected option 1.");
+  case 2:
+    console.log("You selected option 2.");
+  case 3:
+    console.log("You selected option 3.");
+  case 4:
+    console.log("You selected option 4.");
+  case 5:
+    console.log("You selected option 5.");
+  case 6:
+    console.log("You selected option 6.");
+}
+
+//When we don't need Break Statement
+
+var prize = "";
+
+switch (winner) {
+  case 1:
+    prize += "a trip for two to the Bahamas and ";
+  case 2:
+    prize += "a four piece furniture set.";
+    break;
+  case 3:
+    prize += "a smartwatch and ";
+  default:
+    prize += "tickets to the circus.";
+}
+
+console.log("You've won " + prize);
+
+var education = 'an Associate\'s degree';
+
+var salary = 0;
+switch(education){
+    case "no high school diploma":
+        salary = 25636;
+        break;
+    case "a high school diploma":
+        salary = 35256;
+        break;
+    case "an Associate\'s degree":
+        salary = 41496;
+        break;
+    case "no high school diploma":
+        salary = 25636;
+        break;
+    case "a Bachelor\'s degree":
+        salary = 59124;
+        break;
+    case "a Master\'s degree":
+        salary = 69732;
+        break;
+    case "a Doctoral degree":
+        salary = 84396;
+}
+
+console.log("In 2015, a person with "+ education +" earned an average of $"+salary+"/year.")
+
+=======================================================================================================
+

@@ -1,0 +1,233 @@
+function findAverage(x, y) { //x and y are parameter
+  var answer = (x + y) / 2;
+  return answer;
+}
+
+var avg = findAverage(5, 9);  // 5, 9 are Arguments
+
+=======================================================================================
+
+function laugh(){
+    return "hahahahahahahahahaha!";
+}
+
+console.log(laugh());
+
+=======================================================================================
+
+ function laugh(num){
+     var value = "";
+     for (var i = 0; i < num ; i++){
+         value += "ha";
+     }
+     return value + "!";
+ }
+ 
+ console.log(laugh(3));
+ 
+ =======================================================================================
+ 
+ function sleep() {
+  console.log("I'm sleepy!");
+  return "zzz";
+  return "snore";
+}
+
+sleep();
+
+=======================================================================================
+
+function square(x) {
+  return x * x;
+}
+
+function subtractFour(x) {
+  return square(x) - 4;
+}
+
+console.log(subtractFour(5));
+
+=======================================================================================
+
+function test() {
+  return 1;
+  return 2;
+}
+
+test();
+
+=======================================================================================
+
+function addTen(x) {
+  return x + 10;
+}
+
+function divideByThree(y) {
+  return y / 3;
+}
+
+var result = addTen(2);
+console.log(divideByThree(result));
+
+=======================================================================================
+
+var a = 1;
+function x() {
+  var b = 2;
+  function y() {
+    var c = 3;
+    function z() {
+      var d = 4;
+    }
+    z();
+  }
+  y();
+}
+
+x();
+
+=======================================================================================
+//Shadowing and Scopr Explanation
+var x = 1;
+
+function addTwo() {
+  x = x + 2;
+}
+
+addTwo();
+x = x + 1;
+console.log(x);
+
+var x = 1;
+
+function addTwo() {
+  var x = x + 2;
+}
+
+addTwo();
+x = x + 1;
+console.log(x);
+
+//What you've learned so far:
+//1. If an identifier is declared in global scope, it's available everywhere.
+//2. If an identifier is declared in function scope, it's available in the function it was declared in (even in functions declared inside the function).
+//3. When trying to access an identifier, the JavaScript Engine will first look in the current function. If it doesn't find anything, it will continue to the next outer function to see if it can find the identifier there. It will keep doing this until it reaches the global scope.
+//4. Global identifiers are a bad idea. They can lead to bad variable names, conflicting variable names, and messy code.
+
+=======================================================================================
+//Hoisting
+
+sayHi("Julia");
+
+function sayHi(name) {
+  console.log(greeting + " " + name);
+  var greeting;
+}
+
+sayHi("Julia");
+
+function sayHi(name) {
+  console.log(greeting + " " + name);
+  var greeting = "Hello";
+}
+
+function sayHi(name) {
+  var greeting = "Hello";
+  console.log(greeting + " " + name);
+}
+
+sayHi("Julia");
+
+//What you've learned so far:
+//1. JavaScript hoists function declarations and variable declarations to the top of the current scope.
+//2. Variable assignments are not hoisted.
+//3. Declare functions and variables at the top of your scripts, so the syntax and behavior are consistent with each other.
+
+=======================================================================================
+//Traingle
+
+function makeLine(length) {
+    var line = "";
+    for (var j = 1; j <= length; j++) {
+        line += "* ";
+    }
+    return line + "\n";
+}
+
+function buildTriangle(height){
+    var line = "";
+    for (var i = 1; i<=height; i++){
+        line += makeLine(i);
+    }
+    return line;
+}
+
+console.log(buildTriangle(5));
+
+=======================================================================================
+//Function saves in variable and use as a callBack
+
+// function expression catSays
+var catSays = function(max) {
+  var catMessage = "";
+  for (var i = 0; i < max; i++) {
+    catMessage += "meow ";
+  }
+  return catMessage;
+};
+
+// function declaration helloCat accepting a callback
+function helloCat(callbackFunc) {
+  return "Hello " + callbackFunc(3);
+}
+
+// pass in catSays as a callback function
+helloCat(catSays);
+
+=======================================================================================
+// Function expression that assigns the function displayFavorite 
+// to the variable favoriteMovie
+
+var favoriteMovie = function displayFavorite(movieName) {
+  console.log("My favorite movie is " + movieName);
+};
+
+// Function declaration that has two parameters: a function for displaying
+// a message, along with a name of a movie
+function movies(messageFunction, name) {
+  messageFunction(name);
+}
+
+// Call the movies function, pass in the favoriteMovie function and name of movie
+movies(favoriteMovie, "Finding Nemo");
+
+=======================================================================================
+//inline Function
+// Function declaration that takes in two arguments: a function for displaying
+// a message, along with a name of a movie
+
+function movies(messageFunction, name) {
+  messageFunction(name);
+}
+
+// Call the movies function, pass in the function and name of movie
+movies(function displayFavorite(movieName) {
+  console.log("My favorite movie is " + movieName);
+}, "Finding Nemo");
+
+=======================================================================================
+
+function emotions(myString, myFunc) {
+    console.log("I am " + myString + ", " + myFunc(2));
+}
+
+emotions("happy", function laugh(num){
+    var value = "";
+    for(var i=0;i<num;i++){
+        value += "ha";
+    }
+    return value+"!";
+});
+
+=======================================================================================
+

@@ -1,0 +1,349 @@
+// creates a `donuts` array with three strings
+var donuts = ["glazed", "powdered", "jelly"];
+
+=============================================================================================
+
+// creates a `mixedData` array with mixed data types
+var mixedData = ["abcd", 1, true, undefined, null, "all the things"];
+
+=============================================================================================
+
+// creates a `arraysInArrays` array with three arrays
+var arraysInArrays = [[1, 2, 3], ["Julia", "James"], [true, false, true, false]];
+
+=============================================================================================
+
+var arraysInArrays = [
+  [1, 2, 3], 
+  ["Julia", "James"], 
+  [true, false, true, false]
+];
+
+=============================================================================================
+//Value has been Changed
+
+donuts[1] = "glazed cruller"; // changes the second element in the `donuts` array to "glazed cruller"
+console.log(donuts[1]);
+
+=============================================================================================
+
+var captain = "Mal";
+var second = "Zoe";
+var pilot = "Wash";
+var companion = "Inara";
+var mercenary = "Jayne";
+var mechanic = "Kaylee";
+
+var crew = [captain,second,pilot,companion,mercenary,mechanic];
+
+console.log(crew);
+
+=============================================================================================
+//length Property
+
+var donuts = ["glazed", "powdered", "sprinkled"];
+console.log(donuts.length);
+
+=============================================================================================
+
+//push
+var donuts = ["glazed", "chocolate frosted", "Boston creme", "glazed cruller", "cinnamon sugar", "sprinkled"];
+donuts.push("powdered") //return 7
+
+//pop
+var donuts = ["glazed", "chocolate frosted", "Boston creme", "glazed cruller", "cinnamon sugar", "sprinkled", "powdered"];
+donuts.pop(); // the `pop()` method returns "powdered" because "powdered" was the last element on the end of `donuts` array
+Returns: "powdered"
+
+var donuts = ["glazed", "strawberry frosted", "powdered", "Boston creme"];
+donuts.pop();
+donuts.pop();
+donuts.pop();
+donuts.push("maple walnut");
+donuts.pop();
+donuts.push("sprinkled");
+
+=============================================================================================
+//splice
+
+var donuts = ["glazed", "chocolate frosted", "Boston creme", "glazed cruller"];
+donuts.splice(1, 1, "chocolate cruller", "creme de leche"); // removes "chocolate frosted" at index 1 and adds "chocolate cruller" and "creme de leche" starting at index 1
+
+//The first argument represents the starting index from where you want to change the array,
+//the second argument represents the numbers of elements you want to remove,
+//and the remaining arguments represent the elements you want to add.
+
+var myFish = ['angel', 'clown', 'mandarin', 'sturgeon'];
+var removed = myFish.splice(2, 0, 'drum');
+
+// myFish is ["angel", "clown", "drum", "mandarin", "sturgeon"] 
+// removed is [], no elements removed
+
+var myFish = ['angel', 'clown', 'mandarin', 'sturgeon'];
+var removed = myFish.splice(2, 0, 'drum', 'guitar');
+
+// myFish is ["angel", "clown", "drum", "guitar", "mandarin", "sturgeon"] 
+// removed is [], no elements removed
+
+var myFish = ['angel', 'clown', 'drum', 'mandarin', 'sturgeon'];
+var removed = myFish.splice(3, 1);
+
+// removed is ["mandarin"]
+// myFish is ["angel", "clown", "drum", "sturgeon"] 
+
+var myFish = ['angel', 'clown', 'drum', 'sturgeon'];
+var removed = myFish.splice(2, 1, 'trumpet');
+
+// myFish is ["angel", "clown", "trumpet", "sturgeon"]
+// removed is ["drum"]
+
+var myFish = ['angel', 'clown', 'trumpet', 'sturgeon'];
+var removed = myFish.splice(0, 2, 'parrot', 'anemone', 'blue');
+
+// myFish is ["parrot", "anemone", "blue", "trumpet", "sturgeon"] 
+// removed is ["angel", "clown"]
+
+var myFish = ['parrot', 'anemone', 'blue', 'trumpet', 'sturgeon'];
+var removed = myFish.splice(2, 2);
+
+// myFish is ["parrot", "anemone", "sturgeon"] 
+// removed is ["blue", "trumpet"]
+
+var myFish = ['angel', 'clown', 'mandarin', 'sturgeon'];
+var removed = myFish.splice(-2, 1);
+
+// myFish is ["angel", "clown", "sturgeon"] 
+// removed is ["mandarin"]
+
+var myFish = ['angel', 'clown', 'mandarin', 'sturgeon'];
+var removed = myFish.splice(2);
+
+// myFish is ["angel", "clown"]
+// removed is ["mandarin", "sturgeon"]
+
+=============================================================================================
+
+var a = [1,2,3,4,5,6,7,8,9,10]
+a.sort()
+// a = [1,10,2,3,4,5,6,7,8,9]
+//Did you notice that 10 appears before 2?
+//Traditionally, the number 2 comes before 10. But in the .sort() method, numbers are converted to Unicode strings,
+//so 10 comes before 2 in Unicode order.
+
+=============================================================================================
+var fruits = ['Apple', 'Banana'];
+
+var first = fruits.shift(); // remove Apple from the front
+// ["Banana"];
+
+var newLength = fruits.unshift('Strawberry') // add to the front
+// ["Strawberry", "Banana"];
+
+=============================================================================================
+
+var elements = ['Fire', 'Air', 'Water'];
+
+console.log(elements.join());
+// expected output: "Fire,Air,Water"
+
+console.log(elements.join(''));
+// expected output: "FireAirWater"
+
+console.log(elements.join('-'));
+// expected output: "Fire-Air-Water"
+
+=============================================================================================
+
+var shallowCopy = fruits.slice(); // this is how to make a copy
+// ["Strawberry", "Mango"]
+
+=============================================================================================
+
+var hege = ["Cecilie", "Lone"];
+var stale = ["Emil", "Tobias", "Linus"];
+var kai = ["Robin"];
+var children = hege.concat(stale,kai); 
+console.log(children); // Cecilie,Lone,Emil,Tobias,Linus,Robin
+
+=============================================================================================
+
+var fruits = ["Banana", "Orange", "Apple", "Mango"];
+fruits.fill("Kiwi",2,3); //Banana,Orange,Kiwi,Mango
+
+=============================================================================================
+
+//The copyWithin() method copies array elements to another position in the array, overwriting the existing values.
+//This method will never add more items to the array.
+//Note: this method overwrites the original array.
+
+var fruits = ["Banana", "Orange", "Apple", "Mango", "Kiwi", "Papaya"];
+fruits.copyWithin(3,0,2) //Banana,Orange,Apple,Banana,Orange,Papaya
+
+//copy the first two array elements to the third and fourth position
+
+=============================================================================================
+
+var donuts = ["jelly donut", "chocolate donut", "glazed donut"];
+
+// the variable `i` is used to step through each element in the array
+for (var i = 0; i < donuts.length; i++) {
+    donuts[i] += " hole";
+    donuts[i] = donuts[i].toUpperCase();
+}
+
+=============================================================================================
+//foreach loop
+
+var donuts = ["jelly donut", "chocolate donut", "glazed donut"];
+
+donuts.forEach(function(donut) {
+  donut += " hole";
+  donut = donut.toUpperCase();
+  console.log(donut);
+});
+
+//Prints:
+//JELLY DONUT HOLE
+//CHOCOLATE DONUT HOLE
+//GLAZED DONUT HOLE
+
+words = ["cat", "in", "hat"];
+words.forEach(function(word, num, all) {
+  console.log("Word " + num + " in " + all.toString() + " is " + word);
+});
+
+//Prints:
+//Word 0 in cat,in,hat is cat
+//Word 1 in cat,in,hat is in
+//Word 2 in cat,in,hat is hat
+
+var test = [12, 929, 11, 3, 199, 1000, 7, 1, 24, 37, 4,
+    19, 300, 3775, 299, 36, 209, 148, 169, 299,
+    6, 109, 20, 58, 139, 59, 3, 1, 139
+];
+
+test.forEach(function(value,num,array){
+    if(value%3 === 0){
+        array[num] += 100; 
+    }
+});
+
+console.log(test);
+
+=============================================================================================
+//map
+var donuts = ["jelly donut", "chocolate donut", "glazed donut"];
+
+var improvedDonuts = donuts.map(function(donut) {
+  donut += " hole";
+  donut = donut.toUpperCase();
+  return donut;
+});
+
+//Ouput
+//donuts array: ["jelly donut", "chocolate donut", "glazed donut"]
+//improvedDonuts array: ["JELLY DONUT HOLE", "CHOCOLATE DONUT HOLE", "GLAZED DONUT HOLE"]
+
+var array1 = [1, 4, 9, 16];
+
+// pass a function to map
+const map1 = array1.map(x => x * 2);
+
+console.log(map1);
+// expected output: Array [2, 8, 18, 32]
+
+var kvArray = [{key: 1, value: 10}, 
+               {key: 2, value: 20}, 
+               {key: 3, value: 30}];
+
+var reformattedArray = kvArray.map(obj =>{ 
+   var rObj = {};
+   rObj[obj.key] = obj.value;
+   return rObj;
+});
+// reformattedArray is now [{1: 10}, {2: 20}, {3: 30}], 
+
+// kvArray is still: 
+// [{key: 1, value: 10}, 
+//  {key: 2, value: 20}, 
+//  {key: 3, value: 30}]
+
+=============================================================================================
+
+var bills = [50.23, 19.12, 34.01,
+    100.11, 12.15, 9.90, 29.11, 12.99,
+    10.00, 99.22, 102.20, 100.10, 6.77, 2.22
+];
+
+var totals = bills.map(function(value){
+    value *= 1.15;
+    return Number(value.toFixed(2));
+}); 
+
+console.log(totals);
+
+=============================================================================================
+//2D array
+var donutBox = [
+  ["glazed", "chocolate glazed", "cinnamon"],
+  ["powdered", "sprinkled", "glazed cruller"],
+  ["chocolate cruller", "Boston creme", "creme de leche"]
+];
+
+// here, donutBox.length refers to the number of rows of donuts
+for (var row = 0; row < donutBox.length; row++) {
+  console.log(donutBox[row]);
+}
+
+//Prints:
+//["glazed", "chocolate glazed", "cinnamon"]
+//["powdered", "sprinkled", "glazed cruller"]
+//["chocolate cruller", "Boston creme", "creme de leche"]
+
+for (var row = 0; row < donutBox.length; row++) {
+  // here, donutBox[row].length refers to the length of the donut array currently being looped over
+  for (var column = 0; column < donutBox[row].length; column++) {
+    console.log(donutBox[row][column]);
+  }
+}
+
+//Prints:
+//"glazed"
+//"chocolate glazed"
+//"cinnamon"
+//"powdered"
+//"sprinkled"
+//"glazed cruller"
+//"chocolate cruller"
+//"Boston creme"
+//"creme de leche"
+
+=============================================================================================
+
+var numbers = [
+    [243, 12, 23, 12, 45, 45, 78, 66, 223, 3],
+    [34, 2, 1, 553, 23, 4, 66, 23, 4, 55],
+    [67, 56, 45, 553, 44, 55, 5, 428, 452, 3],
+    [12, 31, 55, 445, 79, 44, 674, 224, 4, 21],
+    [4, 2, 3, 52, 13, 51, 44, 1, 67, 5],
+    [5, 65, 4, 5, 5, 6, 5, 43, 23, 4424],
+    [74, 532, 6, 7, 35, 17, 89, 43, 43, 66],
+    [53, 6, 89, 10, 23, 52, 111, 44, 109, 80],
+    [67, 6, 53, 537, 2, 168, 16, 2, 1, 8],
+    [76, 7, 9, 6, 3, 73, 77, 100, 56, 100]
+];
+
+numbers = numbers.map(function(value){
+    for(i=0;i<value.length;i++){
+        if(value[i]%2 === 0){
+            value[i] = "even";
+        }else{
+            value[i] = "odd";
+        }
+    }
+    return value;
+});
+
+console.log(numbers)
+
+=============================================================================================

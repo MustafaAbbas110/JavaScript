@@ -15,3 +15,62 @@ while (x <= 20) {
 }
 
 ==========================================================================================
+
+var num = 99;
+
+while (num > 0) {
+    if(num == 1){
+        console.log(num+" bottle of juice on the wall! "+num+" bottle of juice! Take one down, pass it around... "+(num-1)+" bottles of juice on the wall!")
+    }else{
+        console.log(num+" bottles of juice on the wall! "+num+" bottles of juice! Take one down, pass it around... "+(num-1)+" bottles of juice on the wall!")
+    }
+    num-=1;
+}
+
+==========================================================================================
+
+seconds = 60;
+while(seconds >= 0){
+    console.log(seconds == 50 ? "Orbiter transfers from ground to internal power" 
+    : (seconds == 31 ? "Ground launch sequencer is go for auto sequence start"
+    : (seconds == 16 ? "Activate launch pad sound suppression system" 
+    : (seconds == 10 ? "Activate main engine hydrogen burnoff system"
+    : (seconds == 06 ? "Main engine start"
+    : (seconds === 0 ? "Solid rocket booster ignition and liftoff!"
+    : "T-"+seconds+" seconds"))))));
+    
+    seconds-=1;
+}
+
+==========================================================================================
+
+for (var i = 0; i <= 6; i = i + 2) {
+  console.log(i);
+}
+
+==========================================================================================
+
+x++ or ++x // same as x = x + 1 
+x-- or --x // same as x = x - 1
+x += 3 // same as x = x + 3
+x -= 6 // same as x = x - 6
+x *= 2 // same as x = x * 2
+x /= 5 // same as x = x / 5
+
+==========================================================================================
+
+var solution = 1;
+for (var x = 6 ; x >= 1 ; x--){
+    solution *= x;
+}
+console.log(solution);
+
+==========================================================================================
+
+for (var i = 0 ; i < 26 ; i++){
+    for (var j = 0 ; j < 100 ; j++){
+        console.log(i+"-"+j);
+    }
+}
+
+==========================================================================================

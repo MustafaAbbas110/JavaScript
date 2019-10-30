@@ -208,4 +208,159 @@ greet(); // Welcome Student!
 greet('James'); // Welcome James!
 greet('Richard', 'Howdy'); // Howdy Richard!
 
+//Defaults and destructuring arrays
+//You can combine default function parameters with destructuring to create some pretty powerful functions!
+function createGrid([width = 5, height = 5]) {
+  return `Generates a ${width} x ${height} grid`;
+}
+createGrid([]); // Generates a 5 x 5 grid
+createGrid([2]); // Generates a 2 x 5 grid
+createGrid([2, 3]); // Generates a 2 x 3 grid
+createGrid([undefined, 3]); // Generates a 5 x 3 grid
+createGrid() // Throw an Error!
+//Solution
+function createGrid([width = 5, height = 5] = []) {
+  return `Generates a ${width} x ${height} grid`;
+}
+createGrid(); // Generates a 5 x 5 grid
+
+
+//Defaults and destructuring objects
+//Just like array destructuring with array defaults, a function can have an object be a default parameter and use object destructuring:
+function createSundae({scoops = 1, toppings = ['Hot Fudge']}) {
+  const scoopText = scoops === 1 ? 'scoop' : 'scoops';
+  return `Your sundae has ${scoops} ${scoopText} with ${toppings.join(' and ')} toppings.`;
+}
+createSundae({}); // Your sundae has 1 scoop with Hot Fudge toppings.
+createSundae({scoops: 2}); // Your sundae has 2 scoops with Hot Fudge toppings.
+createSundae({scoops: 2, toppings: ['Sprinkles']}); // Your sundae has 2 scoops with Sprinkles toppings.
+createSundae({toppings: ['Cookie Dough']}); // Your sundae has 1 scoop with Cookie Dough toppings.
+createSundae(); //error
+//solution
+function createSundae({scoops = 1, toppings = ['Hot Fudge']} = {}) {
+  const scoopText = scoops === 1 ? 'scoop' : 'scoops';
+  return `Your sundae has ${scoops} ${scoopText} with ${toppings.join(' and ')} toppings.`;
+}
+
+//Array defaults vs. object defaults
+*/
+Default function parameters are a simple addition, but it makes our lives so much easier!
+One benefit of object defaults over array defaults is how they handle skipped options. Check this out:
+*/
+//function createSundae({scoops = 1, toppings = ['Hot Fudge']} = {}) { … }
+//...with the createSundae() function using object defaults with destructuring,
+//if you want to use the default value for scoops but change the toppings,
+//then all you need to do is pass in an object with toppings:
+createSundae({toppings: ['Hot Fudge', 'Sprinkles', 'Caramel']});
+
+//Compare the above example with the same function that uses array defaults with destructuring.
+function createSundae([scoops = 1, toppings = ['Hot Fudge']] = []) { … }
+/*
+With this function setup, if you want to use the default number of scoops but change the toppings,
+you'd have to call your function a little...oddly:
+*/createSundae([undefined, ['Hot Fudge', 'Sprinkles', 'Caramel']]);
+//Since arrays are positionally based,
+//we have to pass undefined to "skip" over the first argument (and accept the default) to get to the second argument.
+//Unless you've got a strong reason to use array defaults with array destructuring,
+//we recommend going with object defaults with object destructuring!
+
+function buildHouse({floors = 1, color = 'red', walls = 'brick'} = {}){
+    return `Your house has ${floors} floor(s) with ${color} ${walls} walls.`
+}
+console.log(buildHouse()); // Your house has 1 floor(s) with red brick walls.
+console.log(buildHouse({})); // Your house has 1 floor(s) with red brick walls.
+console.log(buildHouse({floors: 3, color: 'yellow'})); // Your house has 3 floor(s) with yellow brick walls.
+
+=================================================================================
+// Class in JavaScript and Extends & Super Key
+// Quick Look
+
+class Dessert {
+  constructor(calories = 250) {
+    this.calories = calories;
+  }
+}
+
+class IceCream extends Dessert {
+  constructor(flavor, calories, toppings = []) {
+    super(calories);
+    this.flavor = flavor;
+    this.toppings = toppings;
+  }
+  addTopping(topping) {
+    this.toppings.push(topping);
+  }
+}
+
+=================================================================================
+//ES5 vs ES6
+//ES%
+function Plane(numEngines) {
+  this.numEngines = numEngines;
+  this.enginesActive = false;
+}
+
+// methods "inherited" by all instances
+Plane.prototype.startEngines = function () {
+  console.log('starting engines...');
+  this.enginesActive = true;
+};
+
+var richardsPlane = new Plane(1);
+richardsPlane.startEngines();
+
+var jamesPlane = new Plane(4);
+jamesPlane.startEngines();
+
+//ES6
+class Plane {
+  constructor(numEngines) {
+    this.numEngines = numEngines;
+    this.enginesActive = false;
+  }
+  
+  startEngines() {
+    console.log('starting engines…');
+    this.enginesActive = true;
+  }
+}
+
+//super must be called before this
+//In a subclass constructor function, before this can be used, a call to the super class must be made.
+
+class Apple {}
+class GrannySmith extends Apple {
+  constructor(tartnessLevel, energy) {
+    this.tartnessLevel = tartnessLevel; // `this` before `super` will throw an error!
+    super(energy); 
+  }
+}
+
+class Vehicle {
+	constructor(color = 'blue', wheels = 4, horn = 'beep beep') {
+		this.color = color;
+		this.wheels = wheels;
+		this.horn = horn;
+	}
+
+	honkHorn() {
+		console.log(this.horn);
+	}
+}
+
+class Bicycle extends Vehicle{
+    constructor(color = 'blue', wheels = 2, horn = 'honk honk'){
+        super(color,wheels,horn);
+    }
+    
+    honkHorn() {
+		console.log(this.horn);
+	}
+}
+
+// your code goes here
+const myVehicle = new Vehicle();
+myVehicle.honkHorn(); // beep beep
+const myBike = new Bicycle();
+myBike.honkHorn(); // honk honk
 

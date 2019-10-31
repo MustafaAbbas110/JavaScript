@@ -250,3 +250,62 @@ library.set(book3, true);
 console.log(library);
 book1 = null;
 console.log(library);
+
+===========================================================================================================
+// Promises
+
+/*
+A promise will let you start some work that will be done asynchronously and let you get back to your regular work.
+When you create the promise, you must give it the code that will be run asynchronously.
+*/
+const mySundae = new Promise(function (resolve, reject) {
+    // sundae creation code
+});
+
+mySundae.then(function(sundae) {
+    console.log(`Time to eat my delicious ${sundae}`);
+}, function(msg) {
+    console.log(msg);
+    self.goCry(); // not a real method
+});
+
+/*
+The .then() method takes two functions:
+1. the function to run if the request completed successfully
+2. the function to run if the request failed to complete
+*/
+
+===========================================================================================================
+// Proxies
+===========================================================================================================
+// Generator Function
+function* getEmployee() {
+    console.log('the function has started');
+
+    const names = ['Amanda', 'Diego', 'Farrin', 'James', 'Kagure', 'Kavita', 'Orit', 'Richard'];
+
+    for (const name of names) {
+        console.log( name );
+    }
+
+    console.log('the function has ended');
+}
+getEmployee();
+
+// this is the response I get in Chrome:
+//getEmployee {[[GeneratorStatus]]: "suspended", [[GeneratorReceiver]]: Window}
+const generatorIterator = getEmployee();
+generatorIterator.next();
+
+function* getEmployee() {
+    console.log('the function has started');
+
+    const names = ['Amanda', 'Diego', 'Farrin', 'James', 'Kagure', 'Kavita', 'Orit', 'Richard'];
+
+    for (const name of names) {
+        console.log(name);
+        yield name;
+    }
+
+    console.log('the function has ended');
+}

@@ -139,4 +139,114 @@ console.log(months.values());
 
 
 ===========================================================================================================
+// What is a WeakSet?
+// A WeakSet is just like a normal Set with a few key differences:
+*/
+- a WeakSet can only contain objects
+- a WeakSet is not iterable which means it can’t be looped over
+- a WeakSet does not have a .clear() method
+*/
+let student1 = { name: 'James', age: 26, gender: 'male' };
+let student2 = { name: 'Julia', age: 27, gender: 'female' };
+let student3 = { name: 'Richard', age: 31, gender: 'male' };
 
+const roster = new WeakSet([student1, student2, student3]);
+console.log(roster);
+roster.add('Amanda');
+// Uncaught TypeError: Invalid value used in weak set(…)
+/*
+Garbage Collection
+In JavaScript, memory is allocated when new values are created and is "automatically" freed up
+when those values are no longer needed.
+This process of freeing up memory after it is no longer needed is what is known as garbage collection.
+WeakSets take advantage of this by exclusively working with objects.
+If you set an object to null, then you’re essentially deleting the object.
+And when JavaScript’s garbage collector runs,
+the memory that object previously occupied will be freed up to be used later in your program.
+/*
+student3 = null;
+console.log(roster);
+// WeakSet {Object {name: 'Julia', age: 27, gender: 'female'}, Object {name: 'James', age: 26, gender: 'male'}}
+
+===========================================================================================================
+// Map
+const employees = new Map();
+console.log(employees);
+const employees = new Map();
+
+employees.set('james.parkes@udacity.com', { 
+    firstName: 'James',
+    lastName: 'Parkes',
+    role: 'Content Developer' 
+});
+employees.set('julia@udacity.com', {
+    firstName: 'Julia',
+    lastName: 'Van Cleve',
+    role: 'Content Developer'
+});
+employees.set('richard@udacity.com', {
+    firstName: 'Richard',
+    lastName: 'Kalehoff',
+    role: 'Content Developer'
+});
+
+console.log(employees);
+
+employees.delete('julia@udacity.com');
+employees.delete('richard@udacity.com');
+console.log(employees);
+
+employees.clear()
+console.log(employees);
+
+const members = new Map();
+
+members.set('Evelyn', 75.68);
+members.set('Liam', 20.16);
+members.set('Sophia', 0);
+members.set('Marcus', 10.25);
+
+console.log(members.has('Xavier'));
+console.log(members.has('Marcus'));
+
+console.log(members.get('Evelyn'));
+// 75.68
+
+// Looping Through Map
+/*
+You’ve created a Map, added some key-value pairs, and now you want to loop through your Map. Thankfully, you’ve got three different options to choose from:
+1. Step through each key or value using the Map’s default iterator
+2. Loop through each key-value pair using the new for...of loop
+3. Loop through each key-value pair using the Map’s .forEach() method
+*/
+ 
+let iteratorObjForKeys = members.keys();
+iteratorObjForKeys.next();
+
+for (const member of members) {
+  console.log(member);
+}
+// ['Evelyn', 75.68]
+// ['Liam', 20.16]
+// ['Sophia', 0]
+// ['Marcus', 10.25]
+
+members.forEach((value, key) => console.log(key, value));
+// 'Evelyn' 75.68
+// 'Liam' 20.16
+// 'Sophia' 0
+// 'Marcus' 10.25
+
+// WeakMap
+const book1 = { title: 'Pride and Prejudice', author: 'Jane Austen' };
+const book2 = { title: 'The Catcher in the Rye', author: 'J.D. Salinger' };
+const book3 = { title: 'Gulliver’s Travels', author: 'Jonathan Swift' };
+
+const library = new WeakMap();
+library.set(book1, true);
+library.set(book2, false);
+library.set(book3, true);
+
+console.log(library);
+book1 = null;
+console.log(library);

@@ -1,0 +1,39 @@
+/*
+The DOM stands for "Document Object Model" and is a tree-like structure that is a representation of the HTML document, the relationship between elements, and contains the content and properties of the elements.
+
+The DOM is not:
+
+part of the JavaScript language
+The DOM is:
+
+constructed from the browser
+is globally accessible by JavaScript code using the document object
+*/
+/*
+ The DOM is an object-oriented representation of the web page, which can be modified with a scripting language such as JavaScript.
+ */
+ 
+ let a = document.getElemetById("Id");
+ typeof a;
+ 
+document.getElementById("demo").innerHTML = "Hello World!";
+
+document.getElementById("id")	// Find an element by element id
+document.getElementsByTagName("name")	// Find elements by tag name
+document.getElementsByClassName("name")	// Find elements by class name
+document.querySelectorAll("p.intro"); // Find element by using CSS selector
+
+// selects the DOM element with an ID of "sidebar"
+const sidebarElement = document.getElementById('sidebar');
+
+// searches within the "sidebar" element for any elements with a class of "sub-heading"
+const subHeadingList = sidebarElement.getElementsByClassName('sub-heading');
+
+// find and return the element with an ID of "header"
+document.querySelector('#header');
+
+// find and return the first element with the class "header"
+document.querySelector('.header');
+
+// find and return the first <header> element
+document.querySelector('header');

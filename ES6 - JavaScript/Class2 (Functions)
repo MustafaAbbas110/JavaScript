@@ -1,0 +1,366 @@
+//Arrow functions
+//ES6 introduces a new kind of function called the arrow function. Arrow functions are very similar to regular functions in behavior, but are quite different syntactically. The following code takes a list of names and converts each one to uppercase using a regular function:
+
+const upperizedNames = ['Farrin', 'Kagure', 'Asser'].map(function(name) { 
+  return name.toUpperCase();
+});
+//The code below does the same thing except instead of passing a regular function to the map() method, it passes an arrow function. Notice the arrow in the arrow function ( => ) in the code below:
+
+const upperizedNames = ['Farrin', 'Kagure', 'Asser'].map(
+  name => name.toUpperCase()
+);
+
+/*
+With the function above, there are only a few steps for converting the existing "normal" function into an arrow function.
+remove the function keyword
+remove the parentheses
+remove the opening and closing curly braces
+remove the return keyword
+remove the semicolon
+add an arrow ( => ) between the parameter list and the function body
+*/
+
+const names = ['Afghanistan', 'Aruba', 'Bahamas', 'Chile', 'Fiji', 'Gabon', 'Luxembourg', 'Nepal', 'Singapore', 'Uganda', 'Zimbabwe'];
+const longNames = names.filter( name => name.length > 6 );
+
+//Regular functions can be either function declarations or function expressions,
+//however arrow functions are always expressions. In fact, their full name is "arrow function expressions",
+//so they can only be used where an expression is valid. This includes being:
+
+/*
+1. stored in a variable,
+2. passed as an argument to a function,
+3.and stored in an object's property.
+*/
+//One confusing syntax is when an arrow function is stored in a variable.
+const greet = name => `Hello ${name}!`;
+//In the code above, the arrow function is stored in the greet variable and you'd call it like this:
+greet('Abbas');
+//Returns: Hello Abbas!
+
+// empty parameter list requires parentheses
+const sayHi = () => console.log('Hello Udacity Student!');
+sayHi();
+
+// multiple parameter list requires parentheses
+const sayHi = (a,b) => console.log(`Hello Udacity Student! ${a}, ${b}`);
+sayHi(1,2);
+
+//Concise and block body syntax
+//All of the arrow functions we've been looking at have only had a single expression as the function body:
+
+const upperizedNames = ['Farrin', 'Kagure', 'Asser'].map(
+  name => name.toUpperCase()
+);
+//This format of the function body is called the "concise body syntax". The concise syntax:
+//1. has no curly braces surrounding the function body
+//2. and automatically returns the expression.
+//If you need more than just a single line of code in your arrow function's body,
+//then you can use the "block body syntax".
+
+const upperizedNames = ['Farrin', 'Kagure', 'Asser'].map( name => {
+  name = name.toUpperCase();
+  return `${name} has ${name.length} characters in their name`;
+});
+
+//Important things to keep in mind with the block syntax:
+//it uses curly braces to wrap the function body
+//and a return statement needs to be used to actually return something from the function.
+
+const myFunction = function() {
+  //...
+}
+
+to
+
+const myFunction = () => {
+  //...
+}
+=================================================================================
+//This Fuctions
+
+//With regular functions, the value of this is set based on how the function is called. With arrow functions,
+//the value of this is based on the function's surrounding context.
+//In other words, the value of this inside an arrow function is the same as the value of this outside the function.
+//Let's check out an example with this in regular functions and then look at how arrow functions will work.
+
+// constructor
+function IceCream() {
+  this.scoops = 0;
+}
+
+// adds scoop to ice cream
+IceCream.prototype.addScoop = function() {
+  setTimeout(function() {
+    this.scoops++;
+    console.log('scoop added!');
+  }, 500);
+};
+
+const dessert = new IceCream();
+dessert.addScoop();
+//Prints:
+//scoop added!
+
+//After running the code above, you'd think that dessert.scoops would be 1 after half a millisecond.
+//But, unfortunately, it's not:
+
+console.log(dessert.scoops);
+//Prints:
+//0
+
+//Can you tell why?
+//The function passed to setTimeout() is called without new, without call(), without apply(),
+//and without a context object. That means the value of this inside the function is the global object and NOT the dessert object.
+//So what actually happened was that a new scoops variable was created
+//(with a default value of undefined) and was then incremented (undefined + 1 results in NaN):
+
+console.log(scoops);
+//Prints:
+//NaN
+
+//One way around this is to use closure:
+
+// constructor
+function IceCream() {
+  this.scoops = 0;
+}
+
+// adds scoop to ice cream
+IceCream.prototype.addScoop = function() {
+  const cone = this; // sets `this` to the `cone` variable
+  setTimeout(function() {
+    cone.scoops++; // references the `cone` variable
+    console.log('scoop added!');
+  }, 0.5);
+};
+
+const dessert = new IceCream();
+dessert.addScoop();
+//The code above will work because instead of using this inside the function,
+//it sets the cone variable to this and then looks up the cone variable when the function is called.
+//This works because it's using the value of the this outside the function.
+//So if we check the number of scoops in our dessert right now, we'll see the correct value of 1:
+
+console.log(dessert.scoops);
+//Prints:
+//1
+
+//Well that's exactly what arrow functions do, so let's replace the function passed to setTimeout() with an arrow function:
+
+// constructor
+function IceCream() {
+  this.scoops = 0;
+}
+
+// adds scoop to ice cream
+IceCream.prototype.addScoop = function() {
+  setTimeout(() => { // an arrow function is passed to setTimeout
+    this.scoops++;
+    console.log('scoop added!');
+  }, 0.5);
+};
+
+const dessert = new IceCream();
+dessert.addScoop();
+//Since arrow functions inherit their this value from the surrounding context, this code works!
+
+console.log(dessert.scoops);
+//Prints:
+//1
+
+//When addScoop() is called, the value of this inside addScoop() refers to dessert.
+//Since an arrow function is passed to setTimeout(),
+//it's using its surrounding context to determine what this refers to inside itself.
+//So since this outside of the arrow function refers to dessert,
+//the value of this inside the arrow function will also refer to dessert.
+//Now what do you think would happen if we changed the addScoop() method to an arrow function?
+
+// constructor
+function IceCream() {
+    this.scoops = 0;
+}
+
+// adds scoop to ice cream
+IceCream.prototype.addScoop = () => { // addScoop is now an arrow function
+  setTimeout(() => {
+    this.scoops++;
+    console.log('scoop added!');
+  }, 0.5);
+};
+
+const dessert = new IceCream();
+dessert.addScoop();
+//Yeah, this doesn't work for the same reason - arrow functions inherit their this value from their surrounding context.
+//Outside of the addScoop() method, the value of this is the global object.
+//So if addScoop() is an arrow function, the value of this inside addScoop()
+//is the global object. Which then makes the value of this in the function passed to setTimeout() also set to the global object!'
+
+=================================================================================
+//Default function parameters
+//Default function parameters are quite easy to read since they're placed in the function's parameter list:
+
+function greet(name = 'Student', greeting = 'Welcome') {
+  return `${greeting} ${name}!`;
+}
+
+greet(); // Welcome Student!
+greet('James'); // Welcome James!
+greet('Richard', 'Howdy'); // Howdy Richard!
+
+//Defaults and destructuring arrays
+//You can combine default function parameters with destructuring to create some pretty powerful functions!
+function createGrid([width = 5, height = 5]) {
+  return `Generates a ${width} x ${height} grid`;
+}
+createGrid([]); // Generates a 5 x 5 grid
+createGrid([2]); // Generates a 2 x 5 grid
+createGrid([2, 3]); // Generates a 2 x 3 grid
+createGrid([undefined, 3]); // Generates a 5 x 3 grid
+createGrid() // Throw an Error!
+//Solution
+function createGrid([width = 5, height = 5] = []) {
+  return `Generates a ${width} x ${height} grid`;
+}
+createGrid(); // Generates a 5 x 5 grid
+
+
+//Defaults and destructuring objects
+//Just like array destructuring with array defaults, a function can have an object be a default parameter and use object destructuring:
+function createSundae({scoops = 1, toppings = ['Hot Fudge']}) {
+  const scoopText = scoops === 1 ? 'scoop' : 'scoops';
+  return `Your sundae has ${scoops} ${scoopText} with ${toppings.join(' and ')} toppings.`;
+}
+createSundae({}); // Your sundae has 1 scoop with Hot Fudge toppings.
+createSundae({scoops: 2}); // Your sundae has 2 scoops with Hot Fudge toppings.
+createSundae({scoops: 2, toppings: ['Sprinkles']}); // Your sundae has 2 scoops with Sprinkles toppings.
+createSundae({toppings: ['Cookie Dough']}); // Your sundae has 1 scoop with Cookie Dough toppings.
+createSundae(); //error
+//solution
+function createSundae({scoops = 1, toppings = ['Hot Fudge']} = {}) {
+  const scoopText = scoops === 1 ? 'scoop' : 'scoops';
+  return `Your sundae has ${scoops} ${scoopText} with ${toppings.join(' and ')} toppings.`;
+}
+
+//Array defaults vs. object defaults
+*/
+Default function parameters are a simple addition, but it makes our lives so much easier!
+One benefit of object defaults over array defaults is how they handle skipped options. Check this out:
+*/
+//function createSundae({scoops = 1, toppings = ['Hot Fudge']} = {}) { … }
+//...with the createSundae() function using object defaults with destructuring,
+//if you want to use the default value for scoops but change the toppings,
+//then all you need to do is pass in an object with toppings:
+createSundae({toppings: ['Hot Fudge', 'Sprinkles', 'Caramel']});
+
+//Compare the above example with the same function that uses array defaults with destructuring.
+function createSundae([scoops = 1, toppings = ['Hot Fudge']] = []) { … }
+/*
+With this function setup, if you want to use the default number of scoops but change the toppings,
+you'd have to call your function a little...oddly:
+*/createSundae([undefined, ['Hot Fudge', 'Sprinkles', 'Caramel']]);
+//Since arrays are positionally based,
+//we have to pass undefined to "skip" over the first argument (and accept the default) to get to the second argument.
+//Unless you've got a strong reason to use array defaults with array destructuring,
+//we recommend going with object defaults with object destructuring!
+
+function buildHouse({floors = 1, color = 'red', walls = 'brick'} = {}){
+    return `Your house has ${floors} floor(s) with ${color} ${walls} walls.`
+}
+console.log(buildHouse()); // Your house has 1 floor(s) with red brick walls.
+console.log(buildHouse({})); // Your house has 1 floor(s) with red brick walls.
+console.log(buildHouse({floors: 3, color: 'yellow'})); // Your house has 3 floor(s) with yellow brick walls.
+
+=================================================================================
+// Class in JavaScript and Extends & Super Key
+// Quick Look
+
+class Dessert {
+  constructor(calories = 250) {
+    this.calories = calories;
+  }
+}
+
+class IceCream extends Dessert {
+  constructor(flavor, calories, toppings = []) {
+    super(calories);
+    this.flavor = flavor;
+    this.toppings = toppings;
+  }
+  addTopping(topping) {
+    this.toppings.push(topping);
+  }
+}
+
+=================================================================================
+//ES5 vs ES6
+//ES%
+function Plane(numEngines) {
+  this.numEngines = numEngines;
+  this.enginesActive = false;
+}
+
+// methods "inherited" by all instances
+Plane.prototype.startEngines = function () {
+  console.log('starting engines...');
+  this.enginesActive = true;
+};
+
+var richardsPlane = new Plane(1);
+richardsPlane.startEngines();
+
+var jamesPlane = new Plane(4);
+jamesPlane.startEngines();
+
+//ES6
+class Plane {
+  constructor(numEngines) {
+    this.numEngines = numEngines;
+    this.enginesActive = false;
+  }
+  
+  startEngines() {
+    console.log('starting engines…');
+    this.enginesActive = true;
+  }
+}
+
+//super must be called before this
+//In a subclass constructor function, before this can be used, a call to the super class must be made.
+
+class Apple {}
+class GrannySmith extends Apple {
+  constructor(tartnessLevel, energy) {
+    this.tartnessLevel = tartnessLevel; // `this` before `super` will throw an error!
+    super(energy); 
+  }
+}
+
+class Vehicle {
+	constructor(color = 'blue', wheels = 4, horn = 'beep beep') {
+		this.color = color;
+		this.wheels = wheels;
+		this.horn = horn;
+	}
+
+	honkHorn() {
+		console.log(this.horn);
+	}
+}
+
+class Bicycle extends Vehicle{
+    constructor(color = 'blue', wheels = 2, horn = 'honk honk'){
+        super(color,wheels,horn);
+    }
+    
+    honkHorn() {
+		console.log(this.horn);
+	}
+}
+
+// your code goes here
+const myVehicle = new Vehicle();
+myVehicle.honkHorn(); // beep beep
+const myBike = new Bicycle();
+myBike.honkHorn(); // honk honk
+

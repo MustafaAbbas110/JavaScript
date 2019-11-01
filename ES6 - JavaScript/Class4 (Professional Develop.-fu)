@@ -1,0 +1,29 @@
+// What is a polyfill?
+// A polyfill, or polyfiller, is a piece of code (or plugin) that provides the technology that you,
+// the developer, expect the browser to provide natively.
+
+if (!String.prototype.startsWith) {
+  String.prototype.startsWith = function (searchString, position) {
+    position = position || 0;
+    return this.substr(position, searchString.length) === searchString;
+  };
+}
+
+/*
+Polyfills aren't only for patching missing JavaScript features
+JavaScript is the language used to create a polyfill, but a polyfill doesn't just patch up missing JavaScript features! There are polyfills for all sorts of browser features:
+
+SVG
+Canvas
+Web Storage (local storage / session storage)
+Video
+HTML5 elements
+Accessibility
+Web Sockets
+and many more!
+*/
+
+===========================================================================================================
+// transpiler
+// It's Convert ES6 Code in to ES5
+//The most popular JavaScript transpiler is called https://babeljs.io/

@@ -1,0 +1,351 @@
+// Symbol
+// A symbol is a unique and immutable data type that is often used to identify object properties.
+// To create a symbol, you write Symbol() with an optional string as its description.
+
+const sym1 = Symbol('apple');
+console.log(sym1);
+// Symbol(apple)
+
+const sym2 = Symbol('banana');
+const sym3 = Symbol('banana');
+console.log(sym2 === sym3);
+// false
+
+onst bowl = {
+  'apple': { color: 'red', weight: 136.078 },
+  'banana': { color: 'yellow', weight: 183.151 },
+  'orange': { color: 'orange', weight: 170.097 },
+  'banana': { color: 'yellow', weight: 176.845 }
+};
+console.log(bowl);
+// Object {apple: Object, banana: Object, orange: Object}
+
+// Instead of adding another banana to the bowl, our previous banana is overwritten by the new banana being added to the bowl. To fix this problem, we can use symbols.
+
+const bowl = {
+  [Symbol('apple')]: { color: 'red', weight: 136.078 },
+  [Symbol('banana')]: { color: 'yellow', weight: 183.15 },
+  [Symbol('orange')]: { color: 'orange', weight: 170.097 },
+  [Symbol('banana')]: { color: 'yellow', weight: 176.845 }
+};
+console.log(bowl);
+// Object {Symbol(apple): Object, Symbol(banana): Object, Symbol(orange): Object, Symbol(banana): Object}
+
+===========================================================================================================
+// iterable & iterator protocols
+// The Iterable Protocol
+// The iterable protocol is used for defining and customizing the iteration behavior of objects.
+// What that really means is you now have the flexibility in ES6 to specify a way for iterating through values in an object.
+// For some objects, they already come built-in with this behavior. For example, strings and arrays are examples of built-in iterables.
+
+const digits = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
+for (const digit of digits) {
+  console.log(digit);
+}
+/*
+0
+1
+2
+3
+4
+5
+6
+7
+8
+9
+*/
+// If you recall from earlier lesson 1, any object that is iterable can use the new for...of loop. Later in this lesson,
+//you’ll also learn about Sets and Maps which are other examples of built-in iterables.
+/*
+How it Works
+In order for an object to be iterable, it must implement the iterable interface.
+If you come from a language like Java or C, then you’re probably familiar with interfaces,
+but for those of you who aren’t, that basically means that in order for an object to be iterable
+it must contain a default iterator method. This method will define how the object should be iterated.
+*/
+// The iterator method, which is available via the constant [Symbol.iterator],
+// is a zero arguments function that returns an iterator object. An iterator object is an object that conforms to the iterator protocol.
+
+// The Iterator Protocol
+// The iterator protocol is used to define a standard way that an object produces a sequence of values.
+// What that really means is you now have a process for defining how an object will iterate.
+// This is done through implementing the .next() method.
+/*
+How it Works
+An object becomes an iterator when it implements the .next() method. The .next() method is a zero arguments
+function that returns an object with two properties:
+*/
+// value : the data representing the next value in the sequence of values within the object
+// done : a boolean representing if the iterator is done going through the sequence of values
+// If done is true, then the iterator has reached the end of its sequence of values.
+// If done is false, then the iterator is able to produce another value in its sequence of values.
+// Here’s the example from earlier, but instead we are using the array’s default iterator to step through the each value in the array.
+
+const digits = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
+const arrayIterator = digits[Symbol.iterator]();
+
+console.log(arrayIterator.next());
+console.log(arrayIterator.next());
+console.log(arrayIterator.next());
+//Object {value: 0, done: false}
+//Object {value: 1, done: false}
+//Object {value: 2, done: false}
+
+===========================================================================================================
+// Sets in javaScript
+
+const games = new Set();
+console.log(games);
+// Set {}
+
+const games = new Set(['Super Mario Bros.', 'Banjo-Kazooie', 'Mario Kart', 'Super Mario Bros.']);
+console.log(games);
+// Set {'Super Mario Bros.', 'Banjo-Kazooie', 'Mario Kart'}
+/*
+The biggest differences between a set and an array are:
+1. Sets are not indexed-based - you do not refer to items in a set based on their position in the set
+2. items in a Set can’t be accessed individually
+*/
+
+const games = new Set(['Super Mario Bros.', 'Banjo-Kazooie', 'Mario Kart', 'Super Mario Bros.']);
+games.add('Banjo-Tooie');
+games.add('Age of Empires');
+games.delete('Super Mario Bros.');
+console.log(games);
+// Set {'Banjo-Kazooie', 'Mario Kart', 'Banjo-Tooie', 'Age of Empires'}
+
+games.clear()
+console.log(games);
+// Set {}
+
+/*
+TIP: If you attempt to .add() a duplicate item to a Set,
+you won’t receive an error, but the item will not be added to the Set.
+Also, if you try to .delete() an item that is not in a Set, you won’t receive an error, and the Set will remain unchanged.
+
+.add() returns the Set if an item is successfully added. On the other hand,
+.delete() returns a Boolean (true or false) depending on successful deletion.
+*/
+
+const months = new Set(['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']);
+console.log(months.size);
+// 12
+
+console.log(months.has('September'));
+// true
+
+console.log(months.values());
+// SetIterator {'January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'}
+
+
+===========================================================================================================
+// What is a WeakSet?
+// A WeakSet is just like a normal Set with a few key differences:
+*/
+- a WeakSet can only contain objects
+- a WeakSet is not iterable which means it can’t be looped over
+- a WeakSet does not have a .clear() method
+*/
+let student1 = { name: 'James', age: 26, gender: 'male' };
+let student2 = { name: 'Julia', age: 27, gender: 'female' };
+let student3 = { name: 'Richard', age: 31, gender: 'male' };
+
+const roster = new WeakSet([student1, student2, student3]);
+console.log(roster);
+roster.add('Amanda');
+// Uncaught TypeError: Invalid value used in weak set(…)
+/*
+Garbage Collection
+In JavaScript, memory is allocated when new values are created and is "automatically" freed up
+when those values are no longer needed.
+This process of freeing up memory after it is no longer needed is what is known as garbage collection.
+WeakSets take advantage of this by exclusively working with objects.
+If you set an object to null, then you’re essentially deleting the object.
+And when JavaScript’s garbage collector runs,
+the memory that object previously occupied will be freed up to be used later in your program.
+/*
+student3 = null;
+console.log(roster);
+// WeakSet {Object {name: 'Julia', age: 27, gender: 'female'}, Object {name: 'James', age: 26, gender: 'male'}}
+
+===========================================================================================================
+// Map
+const employees = new Map();
+console.log(employees);
+const employees = new Map();
+
+employees.set('james.parkes@udacity.com', { 
+    firstName: 'James',
+    lastName: 'Parkes',
+    role: 'Content Developer' 
+});
+employees.set('julia@udacity.com', {
+    firstName: 'Julia',
+    lastName: 'Van Cleve',
+    role: 'Content Developer'
+});
+employees.set('richard@udacity.com', {
+    firstName: 'Richard',
+    lastName: 'Kalehoff',
+    role: 'Content Developer'
+});
+
+console.log(employees);
+
+employees.delete('julia@udacity.com');
+employees.delete('richard@udacity.com');
+console.log(employees);
+
+employees.clear()
+console.log(employees);
+
+const members = new Map();
+
+members.set('Evelyn', 75.68);
+members.set('Liam', 20.16);
+members.set('Sophia', 0);
+members.set('Marcus', 10.25);
+
+console.log(members.has('Xavier'));
+console.log(members.has('Marcus'));
+
+console.log(members.get('Evelyn'));
+// 75.68
+
+// Looping Through Map
+/*
+You’ve created a Map, added some key-value pairs, and now you want to loop through your Map. Thankfully, you’ve got three different options to choose from:
+1. Step through each key or value using the Map’s default iterator
+2. Loop through each key-value pair using the new for...of loop
+3. Loop through each key-value pair using the Map’s .forEach() method
+*/
+ 
+let iteratorObjForKeys = members.keys();
+iteratorObjForKeys.next();
+
+for (const member of members) {
+  console.log(member);
+}
+// ['Evelyn', 75.68]
+// ['Liam', 20.16]
+// ['Sophia', 0]
+// ['Marcus', 10.25]
+
+members.forEach((value, key) => console.log(key, value));
+// 'Evelyn' 75.68
+// 'Liam' 20.16
+// 'Sophia' 0
+// 'Marcus' 10.25
+
+// WeakMap
+const book1 = { title: 'Pride and Prejudice', author: 'Jane Austen' };
+const book2 = { title: 'The Catcher in the Rye', author: 'J.D. Salinger' };
+const book3 = { title: 'Gulliver’s Travels', author: 'Jonathan Swift' };
+
+const library = new WeakMap();
+library.set(book1, true);
+library.set(book2, false);
+library.set(book3, true);
+
+console.log(library);
+book1 = null;
+console.log(library);
+
+===========================================================================================================
+// Promises
+
+/*
+A promise will let you start some work that will be done asynchronously and let you get back to your regular work.
+When you create the promise, you must give it the code that will be run asynchronously.
+*/
+const mySundae = new Promise(function (resolve, reject) {
+    // sundae creation code
+});
+
+mySundae.then(function(sundae) {
+    console.log(`Time to eat my delicious ${sundae}`);
+}, function(msg) {
+    console.log(msg);
+    self.goCry(); // not a real method
+});
+
+/*
+The .then() method takes two functions:
+1. the function to run if the request completed successfully
+2. the function to run if the request failed to complete
+*/
+
+===========================================================================================================
+// Proxies
+===========================================================================================================
+// Generator Function
+function* getEmployee() {
+    console.log('the function has started');
+
+    const names = ['Amanda', 'Diego', 'Farrin', 'James', 'Kagure', 'Kavita', 'Orit', 'Richard'];
+
+    for (const name of names) {
+        console.log( name );
+    }
+
+    console.log('the function has ended');
+}
+getEmployee();
+
+// this is the response I get in Chrome:
+//getEmployee {[[GeneratorStatus]]: "suspended", [[GeneratorReceiver]]: Window}
+const generatorIterator = getEmployee();
+generatorIterator.next();
+
+function* getEmployee() {
+    console.log('the function has started');
+
+    const names = ['Amanda', 'Diego', 'Farrin', 'James', 'Kagure', 'Kavita', 'Orit', 'Richard'];
+
+    for (const name of names) {
+        console.log(name);
+        yield name;
+    }
+
+    console.log('the function has ended');
+}
+
+// Data Send and Out using Generator Function
+
+unction* getEmployee() {
+    const names = ['Amanda', 'Diego', 'Farrin', 'James', 'Kagure', 'Kavita', 'Orit', 'Richard'];
+    const facts = [];
+
+    for (const name of names) {
+        // yield *out* each name AND store the returned data into the facts array
+        facts.push(yield name); 
+    }
+
+    return facts;
+}
+
+const generatorIterator = getEmployee();
+
+// get the first name out of the generator
+let name = generatorIterator.next().value;
+
+// pass data in *and* get the next name
+name = generatorIterator.next(`${name} is cool!`).value; 
+
+// pass data in *and* get the next name
+name = generatorIterator.next(`${name} is awesome!`).value; 
+
+// pass data in *and* get the next name
+name = generatorIterator.next(`${name} is stupendous!`).value; 
+
+// you get the idea
+name = generatorIterator.next(`${name} is rad!`).value; 
+name = generatorIterator.next(`${name} is impressive!`).value;
+name = generatorIterator.next(`${name} is stunning!`).value;
+name = generatorIterator.next(`${name} is awe-inspiring!`).value;
+
+// pass the last data in, generator ends and returns the array
+const positions = generatorIterator.next(`${name} is magnificent!`).value; 
+
+// displays each name with description on its own line
+positions.join('\n'); 
